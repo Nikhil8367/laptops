@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ecf0f1;
+            margin-bottom: 20px;
+        }
+
+        #searchContainer {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #searchInputs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #searchInput,
+        #minPriceInput,
+        #maxPriceInput {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        #laptopContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .laptop {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 10px;
+            display: inline-block;
+            width: calc(25% - 20px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .laptop:hover {
+            transform: scale(1.05);
+        }
+
+        .laptop h1 {
+            color: #3498db;
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .laptop h2 {
+            color: #2c3e50;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .laptop ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            color: #333;
+        }
+
+        .laptop li {
+            margin-bottom: 4px;
+        }
+
+        .laptop a img {
+            width: 70%;
+            border-radius: 10px;
+            margin-top: 6px;
+        }
+    </style>
+    <title>Laptop Search</title>
+</head>
+
+<body>
+
+    <h1>Laptop Search</h1>
+
+    <div id="searchContainer">
+        <div id="searchInputs">
+            <input type="text" id="searchInput" placeholder="Search for laptops">
+            <input type="number" id="minPriceInput" placeholder="Min Price">
+            <input type="number" id="maxPriceInput" placeholder="Max Price">
+        </div>
+    </div>
+
+    <div id="laptopContainer">
+        <div class="laptop" data-price="72990">
+            <h1>iPhone 15</h1>
+            <h2>Details:</h2>
+            <ul>
+                <li>CPU: A16 Bionic</li>
+                <li>Ram: 4GB</li>
+                <li>Storage: 128GB</li>
+                <li>Cam: 48MP</li>
+                <li>Cost: 72,990/-</li>
+                <li>Battery: 3367 mAh</li>
+            </ul>
+            <a href="https://www.amazon.in/Apple-iPhone-15-128-GB/dp/B0CHX2F5QT?crid=RSK44HYZACRS&keywords=iphone&qid=1704821509&sprefix=iphone%2Caps%2C347&sr=8-2-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1&linkCode=ll1&tag=nikhil834134-21&linkId=f16f319d8a2b978588dd023ec290016a&language=en_IN&ref_=as_li_ss_tl">
+                <img src="1.jpeg" alt="iPhone 15 Image">
+            </a>
+        </div>
+ 
+        <!-- Add more laptop items as needed -->
+    </div>
+
+    <script>
+        // Add event listeners for 'keyup' on the input fields
+        document.getElementById('searchInput').addEventListener('keyup', searchLaptops);
+        document.getElementById('minPriceInput').addEventListener('keyup', searchLaptops);
+        document.getElementById('maxPriceInput').addEventListener('keyup', searchLaptops);
+
+        function searchLaptops() {
+            var input, minPriceInput, maxPriceInput, filter, minPriceFilter, maxPriceFilter, laptopContainer, laptops, laptop, i, txtValue, laptopPrice;
+            input = document.getElementById('searchInput');
+            minPriceInput = document.getElementById('minPriceInput');
+            maxPriceInput = document.getElementById('maxPriceInput');
+            filter = input.value.toUpperCase();
+            minPriceFilter = minPriceInput.value ? parseInt(minPriceInput.value) : 0;
+            maxPriceFilter = maxPriceInput.value ? parseInt(maxPriceInput.value) : Infinity;
+            laptopContainer = document.getElementById('laptopContainer');
+            laptops = laptopContainer.getElementsByClassName('laptop');
+
+            for (i = 0; i < laptops.length; i++) {
+                laptop = laptops[i];
+                txtValue = laptop.textContent || laptop.innerText;
+                laptopPrice = parseInt(laptop.getAttribute('data-price'));
+
+                if (txtValue.toUpperCase().indexOf(filter) > -1 && laptopPrice >= minPriceFilter && laptopPrice <= maxPriceFilter) {
+                    laptop.style.display = 'inline-block';
+                } else {
+                    laptop.style.display = 'none';
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
